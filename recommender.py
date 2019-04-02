@@ -170,7 +170,7 @@ def get_movie_info(sorted_score_list):
         result.append(info)
     return result
 
-# query = "Taisto Olavi Kasurinen"
+
 
 
 
