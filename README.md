@@ -84,4 +84,29 @@ def cosine_similarity(relevant_docs, query_vector):
 **Naive Bayes Classifier:**
 - It is a classification technique based on Bayes’ Theorem with an assumption of independence among predictors. In simple terms, a Naive Bayes classifier assumes that the presence of a particular feature in a class is unrelated to the presence of any other feature. For example, a fruit may be considered to be an apple if it is red, round, and about 3 inches in diameter. 
 - Even if these features depend on each other or upon the existence of the other features, all of these properties independently contribute to the probability that this fruit is an apple and that is why it is known as ‘Naive’.
+- The below code snippet implements the logic for multinomial Naive Bayes Classifier.
+```
+def get_results(query):
+    global prior_probability, post_probability
+    initialize()
+    if os.path.isfile("classifierPickle.pkl"):
+        prior_probability = pickle.load(open('classifierPicklePrior.pkl', 'rb'))
+        post_probability = pickle.load(open('classifierPicklePost.pkl', 'rb'))
+    else:
+        (prior_probability, post_probability) = build_and_save()
+    return eval_result(query)
 
+def eval_result(query):
+    processed_query = pre_processing(query)
+    genre_score = {}
+    for genre in prior_probability.keys():
+        score = prior_probability[genre]
+        # print("For genre: ", genre, ", prior score: ", score)
+        for token in processed_query:
+            if (genre, token) in post_probability.keys():
+                score = score * post_probability[(genre, token)]
+                # print("token: ", token, ", score: ", score)
+        genre_score[genre] = score
+    sorted_score_map = sorted(genre_score.items(), key=operator.itemgetter(1), reverse=True)
+    return sorted_score_map
+ ```
