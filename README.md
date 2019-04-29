@@ -63,7 +63,7 @@ def get_relevant_docs(query_list):
         relevant_docs.remove("df")
     return relevant_docs
 ```
-**Vector Space Model And Cosine Similarity**
+**Vector Space Model And Cosine Similarity:**
 - After calculating TF-IDF scores, how do we determine which items are closer to each other, rather closer to the user profile? This is accomplished using the Vector Space Model which computes the proximity based on the angle between the vectors. 
 - In this model, each item is stored as a vector of its attributes (which are also vectors) in an ndimensional space and the angles between the vectors are calculated to determine the similarity between the vectors. 
 - Next, the user profile vectors are also created based on his actions on previous attributes of items and the similarity between an item and a user is also determined in a similar way.
@@ -80,3 +80,8 @@ def cosine_similarity(relevant_docs, query_vector):
     sorted_score_map = sorted(score_map.items(), key=operator.itemgetter(1), reverse=True)
     return sorted_score_map[:50]
 ```
+# Classifier
+**Naive Bayes Classifier:**
+- It is a classification technique based on Bayes’ Theorem with an assumption of independence among predictors. In simple terms, a Naive Bayes classifier assumes that the presence of a particular feature in a class is unrelated to the presence of any other feature. For example, a fruit may be considered to be an apple if it is red, round, and about 3 inches in diameter. 
+- Even if these features depend on each other or upon the existence of the other features, all of these properties independently contribute to the probability that this fruit is an apple and that is why it is known as ‘Naive’.
+
