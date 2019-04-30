@@ -110,3 +110,4 @@ def eval_result(query):
     sorted_score_map = sorted(genre_score.items(), key=operator.itemgetter(1), reverse=True)
     return sorted_score_map
  ```
+# Recommender
