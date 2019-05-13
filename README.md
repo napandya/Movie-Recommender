@@ -148,3 +148,52 @@ Lets create a Metadata which combines all the features. and apply it to our coun
 ```
 Reference:https://www.datacamp.com/community/tutorials/recommender-systems-python
 
+# Deployment On Python Anywhere
+**Steps for Deploying Flask Web App**
+
+There are two main ways to set up a Flask application on PythonAnywhere:
+
+ - Starting from scratch using our default versions of Flask
+ - Importing a pre-existing app using Manual configuration, and using a virtualenv
+   The first option works well if you're just playing around and want to throw something together from scratch. Go to the Web Tab and      hit Add a new Web App, and choose Flask and the Python version you want.
+
+**Setting up your virtualenv**
+
+ - mkvirtualenv --python=/usr/bin/python3.6 my-virtualenv  # use whichever python version you prefer
+   pip install flask
+  
+You'll see the prompt changes from a $ to saying (my-virtualenv)$ -- that's how you can tell your virtualenv is active. 
+Whenever you want to work on your project in the console, you need to make sure the virtualenv is active. You can reactivate it at a later date with
+
+  - $ workon my-virtualenv
+	 (my-virtualenv)$
+
+**Configuring the WSGI file**
+
+To configure this file, you need to know which file your flask app lives in. The flask app usually looks something like this:
+
+- app = Flask(__name__)
+
+Make a note of the path to that file, and the name of the app variable (is it "app"? Or "application"?) 
+
+ - In this example, let's say it's /home/yourusername/mysite/flask_app.py, and the variable is "app".
+
+In your WSGI file, skip down to the flask section, uncomment it, and make it looks something like this:
+
+- import sys
+  path = '/home/yourusername/mysite'
+  if path not in sys.path:
+    sys.path.insert(0, path)
+  from flask_app import app as application
+  
+**Do not use app.run()**
+When you're using Flask on your own PC, you'll often "run" flask using a line that looks something like this:
+
+ - app.run(host='127.0.0.1',port=8000,debug=True)
+ That won't work on PythonAnywhere -- the only way your app will appear on the public internet is if it's configured via the web tab, with a wsgi file.
+
+More importantly, 'if app.run() gets called when we import your code, it will crash your app', and you'll see a 504 error on your site, as detailed in Flask504Error
+
+Thankfully, most Flask tutorials out there suggest you put the app.run() inside an if __name__ = '__main__': clause, which will be OK, because that won't get run when we import it.
+ 
+Reference:https://help.pythonanywhere.com/pages/Flask/
