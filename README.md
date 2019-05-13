@@ -111,3 +111,40 @@ def eval_result(query):
     return sorted_score_map
  ```
 # Recommender
+**Metadata Based Recommender**
+
+- We will be using the information such as Credits,Keywords, Ratings and Movie details to recommend movies to a user.
+- For any Recommender the more metadata it has the more it is accurate.
+- To build a recommender,the following are the steps involved:
+-  Decide on the metric or score to rate movies on.
+-  Calculate the score for every movie.
+-  Sort the movies based on the score and output the top results.
+First lets clean the data
+```
+def clean_data(x):
+    if isinstance(x, list):
+        return [str.lower(i.replace(" ", "")) for i in x]
+    else:
+        #Check if director exists. If not, return empty string
+        if isinstance(x, str):
+            return str.lower(x.replace(" ", ""))
+        else:
+            return ''
+```
+Now, Lets Apply the clean data function to our feature extractor:
+```
+Features = ['cast', 'keywords', 'director', 'genres']
+
+    for feature in features:
+        metadata[feature] = metadata[feature].apply(clean_data)
+```
+Lets create a Metadata which combines all the features. and apply it to our count vectorizer
+
+```
+    metadata['soup'] = metadata.apply(create_soup, axis=1)
+
+    count = CountVectorizer(stop_words='english')
+    count_matrix = count.fit_transform(metadata['soup'])
+```
+Reference:https://www.datacamp.com/community/tutorials/recommender-systems-python
+
