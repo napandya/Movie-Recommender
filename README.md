@@ -1,3 +1,16 @@
+# Movie-Recommendation
+Dataset: [Movie Lens](https://www.kaggle.com/rounakbanik/the-movies-dataset/home))
+- To develop the search feature for this web application,we used 'The Movies Dataset'.These files contain metadata for all 45,000 movies listed in the Full MovieLens Dataset. The dataset consists of movies released on or before July 2017. Data points include cast, crew, plot keywords, budget, revenue, posters, release dates, languages,production companies, countries, TMDB vote counts and vote averages.This dataset also has files containing 26 million ratings from 270,000 users for all 45,000 movies. Ratings are on a scale of 1-5 and have been obtained from the official GroupLens website.
+
+## Project Video
+[![Watch the video](https://img.youtube.com/vi/JWs6-rqRnGY/0.jpg)](https://www.youtube.com/watch?v=pwQSCtnXKbc&t=38s)
+
+## [Movie Search](https://nandanpandya.netlify.com/post/blog_post/)
+Blog: [https://nandanpandya.netlify.com/post/blog_post//](https://nandanpandya.netlify.com/post/blog_post//)
+
+Search feature calculate cosine similarity between vectors space of search query and movies and top 20 movies are returned.
+
+
 # Movie Recommender
 The Movie Recommender project is part of the submission for Data Mining course.
 It is developed in three major phases:
@@ -5,9 +18,6 @@ It is developed in three major phases:
 2) Developing the classifier
 3) Developing the recommender
 
-# The search feature
-**Dataset**:(https://www.kaggle.com/rounakbanik/the-movies-dataset/home)
-- To develop the search feature for this web application,we used 'The Movies Dataset'.These files contain metadata for all 45,000 movies listed in the Full MovieLens Dataset. The dataset consists of movies released on or before July 2017. Data points include cast, crew, plot keywords, budget, revenue, posters, release dates, languages,production companies, countries, TMDB vote counts and vote averages.This dataset also has files containing 26 million ratings from 270,000 users for all 45,000 movies. Ratings are on a scale of 1-5 and have been obtained from the official GroupLens website.
 
 **Inverted Index**:
 
