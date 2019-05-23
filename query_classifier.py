@@ -7,7 +7,7 @@ from nltk.stem.porter import PorterStemmer
 def get_results(query):
     global prior_probability, post_probability
     initialize()
-    if os.path.isfile("classifierPickle.pkl"):
+    if os.path.isfile("classifierPicklePrior.pkl"):
         prior_probability = pickle.load(open('classifierPicklePrior.pkl', 'rb'))
         post_probability = pickle.load(open('classifierPicklePost.pkl', 'rb'))
     else:

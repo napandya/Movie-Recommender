@@ -43,61 +43,80 @@ def create_soup(x):
     return ' '.join(x['keywords']) + ' ' + ' '.join(x['cast']) + ' ' + x['director'] + ' ' + ' '.join(x['genres'])
 
 def get_recommendations(title):
-    # Load Movies Metadata,keywords,credits
+    print("Entered the method...")
+    cosine_sim2 = None
+    metadata = None
+    print("Starting of if else block")
+    if os.path.isfile("cosineSimPickle.pkl"):
+        print("Found cosineSimPickle")
+        cosine_sim2 = pickle.load(open('cosineSimPickle.pkl', 'rb'))
+        metadata = pickle.load(open('metadataPickle.pkl', 'rb'))
+        # print(metadata)
+    else:
+        print("Did not found cosineSimPickle. Creating one...")
+        # Load Movies Metadata,keywords,credits
+        data_folder = 'data/'
+        metadata = pd.read_csv(data_folder + 'movies_metadata.csv')
+        credits = pd.read_csv(data_folder + 'credits.csv')
+        keywords = pd.read_csv(data_folder + 'keywords.csv')
 
-    data_folder = 'data/'
-    metadata = pd.read_csv(data_folder + 'movies_metadata.csv')
-    credits = pd.read_csv(data_folder + 'credits.csv')
-    keywords = pd.read_csv(data_folder + 'keywords.csv')
+        metadata = metadata.drop([19730, 29503, 35587])
 
-    metadata = metadata.drop([19730, 29503, 35587])
+        # Convert IDs to int. Required for merging
+        keywords['id'] = keywords['id'].astype('int')
+        credits['id'] = credits['id'].astype('int')
+        metadata['id'] = metadata['id'].astype('int')
 
-    # Convert IDs to int. Required for merging
-    keywords['id'] = keywords['id'].astype('int')
-    credits['id'] = credits['id'].astype('int')
-    metadata['id'] = metadata['id'].astype('int')
+        # Merge keywords and credits into your main metadata dataframe
+        metadata = metadata.merge(credits, on='id')
+        metadata = metadata.merge(keywords, on='id')
 
-    # Merge keywords and credits into your main metadata dataframe
-    metadata = metadata.merge(credits, on='id')
-    metadata = metadata.merge(keywords, on='id')
+        metadata = metadata.head(20000)
+        # print(metadata)
 
-    metadata.head(2)
-    # print(metadata)
+        # Parse the stringified features into their corresponding python objects
+        features = ['cast', 'crew', 'keywords', 'genres']
+        for feature in features:
+            metadata[feature] = metadata[feature].apply(literal_eval)
 
-    # Parse the stringified features into their corresponding python objects
-    features = ['cast', 'crew', 'keywords', 'genres']
-    for feature in features:
-        metadata[feature] = metadata[feature].apply(literal_eval)
+        # Define new director, cast, genres and keywords features that are in a suitable form.
+        metadata['director'] = metadata['crew'].apply(get_director)
 
-    # Define new director, cast, genres and keywords features that are in a suitable form.
-    metadata['director'] = metadata['crew'].apply(get_director)
+        features = ['cast', 'keywords', 'genres']
+        for feature in features:
+            metadata[feature] = metadata[feature].apply(get_list)
+        # Print the new features of the first 3 films
+        # print(metadata[['title', 'cast', 'director', 'keywords', 'genres']].head(3))
+        # print(metadata.head(3))
 
-    features = ['cast', 'keywords', 'genres']
-    for feature in features:
-        metadata[feature] = metadata[feature].apply(get_list)
-    # Print the new features of the first 3 films
-    # print(metadata[['title', 'cast', 'director', 'keywords', 'genres']].head(3))
-    # print(metadata.head(3))
+        # Apply clean_data function to your features.
+        features = ['cast', 'keywords', 'director', 'genres']
 
-    # Apply clean_data function to your features.
-    features = ['cast', 'keywords', 'director', 'genres']
+        for feature in features:
+            metadata[feature] = metadata[feature].apply(clean_data)
 
-    for feature in features:
-        metadata[feature] = metadata[feature].apply(clean_data)
+        # Create a new soup feature
+        metadata['soup'] = metadata.apply(create_soup, axis=1)
 
-    # Create a new soup feature
-    metadata['soup'] = metadata.apply(create_soup, axis=1)
+        count = CountVectorizer(stop_words='english')
+        count_matrix = count.fit_transform(metadata['soup'])
 
-    count = CountVectorizer(stop_words='english')
-    count_matrix = count.fit_transform(metadata['soup'])
+        # Reset index of your main DataFrame and construct reverse mapping as before
+        metadata = metadata.reset_index()
 
-    # Reset index of your main DataFrame and construct reverse mapping as before
-    metadata = metadata.reset_index()
 
-    # Get the index of the movie that matches the title
-    cosine_sim2 = cosine_similarity(count_matrix, count_matrix)
+        cosine_sim2 = cosine_similarity(count_matrix, count_matrix)
+        print(type(cosine_sim2))
+        print("Both data calculated. Dumping them...")
+        pickle.dump(cosine_sim2, open('cosineSimPickle.pkl', 'wb+'))
+        print("Dumped cosineSimPickle")
+        pickle.dump(metadata, open('metadataPickle.pkl', 'wb+'))
+        print("Dumped both")
+
+    print("Ending of if else block")
 
     indices = pd.Series(metadata.index, index=metadata['title'])
+    # Get the index of the movie that matches the title
     idx = indices[title]
     # Get the pairwsie similarity scores of all movies with that movie
     sim_scores = list(enumerate(cosine_sim2[idx]))
@@ -116,7 +135,5 @@ def get_recommendations(title):
         result.append(metadata['title'].iloc[entry])
     return result
 
-    # Return the top 10 most similar movies
-    return result
 # a = get_recommendations('The Dark Knight Rises')
 # print (a)

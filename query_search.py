@@ -117,7 +117,7 @@ def initialize():
     #data_folder = '/home/npandya/mysite/data/'
     data_folder = 'data/'
     credits_cols = {"id": None, "cast":['character', 'name'], "crew":['name']}
-    meta_cols = {"id": None, "genres":['name'], "original_title":None, "overview":None,
+    meta_cols = {"id": None, "genres":['name'], "original_title":None, "overview":None,"poster_path":None,
                      "production_companies":['name'], "tagline":None}
     noise_list = ['(voice)', '(uncredited)']
 
@@ -159,7 +159,7 @@ def eval_score(query):
     # print(query_vector)
     sorted_score_list = cosine_similarity(relevant_docs, query_vector)
     search_result = get_movie_info(sorted_score_list)
-    # print(search_result)
+    print(search_result)
     return search_result
 
 def get_movie_info(sorted_score_list):
@@ -167,7 +167,11 @@ def get_movie_info(sorted_score_list):
     for entry in sorted_score_list:
         doc_id = entry[0]
         row = meta_data.loc[doc_id]
-        info = (row["original_title"], row["overview"] if isinstance(row["overview"], str) else "")
+        info = (row["original_title"],
+                row["overview"] if isinstance(row["overview"], str) else "",
+                entry[1],
+                row["poster_path"])
+        print(result)
         result.append(info)
     return result
 
