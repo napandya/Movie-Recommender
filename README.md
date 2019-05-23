@@ -10,7 +10,7 @@ Blog: [https://nandanpandya.netlify.com/post/blog_post//](https://nandanpandya.n
 
 Search feature calculate cosine similarity between vectors space of search query and movies and top 20 movies are returned.
 
-###Pre-Processing:Stemming
+### Pre-Processing:Stemming
 ```
 def pre_processing(data_string):
     for noise in noise_list:
@@ -22,7 +22,7 @@ def pre_processing(data_string):
             processed_data.append(stemmer.stem(t).lower())
     return processed_data
 ```
-###Creation Of Inverted Index:
+### Creation Of Inverted Index:
 ```
 def create_inverted_index(x_data, x_cols):
     for row in x_data.itertuples():
@@ -56,7 +56,7 @@ def insert(index, tokens):
             inverted_index[token] = {index: 1, "df": 1}
 ```
 
-###Calculation for TF IDF:
+### Calculation for TF IDF:
 
 Calculate TF and IDF of each document:
 ```
@@ -80,7 +80,7 @@ def build_doc_vector():
         for tf_idf_key in tf_idf_vector:
             tf_idf_vector[tf_idf_key] /= normalize
 ```
-###Build the Query Vector
+### Build the Query Vector
 
 ```
 def build_query_vector(processed_query):
@@ -96,7 +96,7 @@ def build_query_vector(processed_query):
         query_vector[token] /= sum
     return query_vector
 ```
-###Calculate the cosine similarity
+### Calculate the cosine similarity
 ```
 def cosine_similarity(relevant_docs, query_vector):
     score_map = {}
@@ -227,7 +227,7 @@ Lets create a Metadata which combines all the features. and apply it to our coun
     count = CountVectorizer(stop_words='english')
     count_matrix = count.fit_transform(metadata['soup'])
 ```
-# Deployment On Python Anywhere
+## Deployment On Python Anywhere
 **Steps for Deploying Flask Web App**
 
 There are two main ways to set up a Flask application on PythonAnywhere:
