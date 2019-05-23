@@ -2,13 +2,17 @@
 Dataset: [Movie Lens](https://www.kaggle.com/rounakbanik/the-movies-dataset/home))
 - To develop the search feature for this web application,we used 'The Movies Dataset'.These files contain metadata for all 45,000 movies listed in the Full MovieLens Dataset. The dataset consists of movies released on or before July 2017. Data points include cast, crew, plot keywords, budget, revenue, posters, release dates, languages,production companies, countries, TMDB vote counts and vote averages.This dataset also has files containing 26 million ratings from 270,000 users for all 45,000 movies. Ratings are on a scale of 1-5 and have been obtained from the official GroupLens website.
 
+##Web Application URL:
+Web App:[Movie Web APP](http://ec2-3-15-11-26.us-east-2.compute.amazonaws.com:5000/)) 
+
 ## Project Video
-[![Watch the video](https://img.youtube.com/vi/JWs6-rqRnGY/0.jpg)](https://www.youtube.com/watch?v=pwQSCtnXKbc&t=38s)
+[![Watch the video]](https://img.youtube.com/vi/JWs6-rqRnGY/0.jpg)](https://youtu.be/V3v-0DzB22g)
 
-## [Movie Search](https://nandanpandya.netlify.com/post/blog_post/)
-Blog: [https://nandanpandya.netlify.com/post/blog_post//](https://nandanpandya.netlify.com/post/blog_post//)
+## [Movie Search](https://nandanpandya.netlify.com/post/movie-search/)
+Blog: [https://nandanpandya.netlify.com/post/movie-search//](https://nandanpandya.netlify.com/post/movie-search//)
 
-Search feature calculate cosine similarity between vectors space of search query and movies and top 20 movies are returned.
+
+Search feature calculates cosine similarity between vectors space of search query and movies and top movies are returned.
 
 ### Pre-Processing:Stemming
 ```
@@ -108,7 +112,8 @@ def cosine_similarity(relevant_docs, query_vector):
     sorted_score_map = sorted(score_map.items(), key=operator.itemgetter(1), reverse=True)
     return sorted_score_map[:50]
 ```
-## [Movie Classifier]()
+## [Movie Classifier](https://nandanpandya.netlify.com/post/movie-classifier/)
+Blog: [https://nandanpandya.netlify.com/post/movie-classifier//](https://nandanpandya.netlify.com/post/movie-classifier//)
 
 **Naive Bayes Classifier:**
 - It is a classification technique based on Bayes’ Theorem with an assumption of independence among predictors. In simple terms, a Naive Bayes classifier assumes that the presence of a particular feature in a class is unrelated to the presence of any other feature.
@@ -191,7 +196,8 @@ def build_and_save():
     return (prior_probability, post_probability)
 ```
  
-### Movie Recommender
+## [Movie Recommender](https://nandanpandya.netlify.com/post/movie-recommender/)
+Blog: [https://nandanpandya.netlify.com/post/movie-recommender/](https://nandanpandya.netlify.com/post/movie-recommender/)
 **Metadata Based Recommender**
 
 - We will be using the information such as Credits,Keywords, Ratings and Movie details to recommend movies to a user.
@@ -227,53 +233,6 @@ Lets create a Metadata which combines all the features. and apply it to our coun
     count = CountVectorizer(stop_words='english')
     count_matrix = count.fit_transform(metadata['soup'])
 ```
-## Deployment On Python Anywhere
-**Steps for Deploying Flask Web App**
-
-There are two main ways to set up a Flask application on PythonAnywhere:
-
- - Starting from scratch using our default versions of Flask
- - Importing a pre-existing app using Manual configuration, and using a virtualenv
-   The first option works well if you're just playing around and want to throw something together from scratch. Go to the Web Tab and      hit Add a new Web App, and choose Flask and the Python version you want.
-
-**Setting up your virtualenv**
-
- - mkvirtualenv --python=/usr/bin/python3.6 my-virtualenv  # use whichever python version you prefer
-   pip install flask
-  
-You'll see the prompt changes from a $ to saying (my-virtualenv)$ -- that's how you can tell your virtualenv is active. 
-Whenever you want to work on your project in the console, you need to make sure the virtualenv is active. You can reactivate it at a later date with
-
-  - $ workon my-virtualenv
-	 (my-virtualenv)$
-
-**Configuring the WSGI file**
-
-To configure this file, you need to know which file your flask app lives in. The flask app usually looks something like this:
-
-- app = Flask(__name__)
-
-Make a note of the path to that file, and the name of the app variable (is it "app"? Or "application"?) 
-
- - In this example, let's say it's /home/yourusername/mysite/flask_app.py, and the variable is "app".
-
-In your WSGI file, skip down to the flask section, uncomment it, and make it looks something like this:
-
-- import sys
-  path = '/home/yourusername/mysite'
-  if path not in sys.path:
-    sys.path.insert(0, path)
-  from flask_app import app as application
-  
-**Do not use app.run()**
-When you're using Flask on your own PC, you'll often "run" flask using a line that looks something like this:
-
- - app.run(host='127.0.0.1',port=8000,debug=True)
- That won't work on PythonAnywhere -- the only way your app will appear on the public internet is if it's configured via the web tab, with a wsgi file.
-
-More importantly, 'if app.run() gets called when we import your code, it will crash your app', and you'll see a 504 error on your site, as detailed in Flask504Error
-
-Thankfully, most Flask tutorials out there suggest you put the app.run() inside an if __name__ = '__main__': clause, which will be OK, because that won't get run when we import it.
  
 ## References
 * [Kaggle Kernels](https://www.kaggle.com/rounakbanik/the-movies-dataset/kernels)
@@ -285,3 +244,4 @@ Thankfully, most Flask tutorials out there suggest you put the app.run() inside 
 * [https://nlp.stanford.edu/IR-book/pdf/06vect.pdf](https://nlp.stanford.edu/IR-book/pdf/06vect.pd)
 * [http://flask.pocoo.org/docs/](http://flask.pocoo.org/docs/)
 * [http://pandas.pydata.org/pandas-docs/stable/](http://pandas.pydata.org/pandas-docs/stable/)
+* [https://docs.aws.amazon.com/efs/latest/ug/gs-step-one-create-ec2-resources.html](https://docs.aws.amazon.com/efs/latest/ug/gs-step-one-create-ec2-resources.html)
