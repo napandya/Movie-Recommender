@@ -2,14 +2,14 @@
 Dataset: [Movie Lens](https://www.kaggle.com/rounakbanik/the-movies-dataset/home))
 - To develop the search feature for this web application,we used 'The Movies Dataset'.These files contain metadata for all 45,000 movies listed in the Full MovieLens Dataset. The dataset consists of movies released on or before July 2017. Data points include cast, crew, plot keywords, budget, revenue, posters, release dates, languages,production companies, countries, TMDB vote counts and vote averages.This dataset also has files containing 26 million ratings from 270,000 users for all 45,000 movies. Ratings are on a scale of 1-5 and have been obtained from the official GroupLens website.
 
-##Web Application URL:
-Web App:[Movie Web APP](http://ec2-3-15-11-26.us-east-2.compute.amazonaws.com:5000/)) 
+## Web Application URL:
+Web App:[Movie Web APP]((http://ec2-3-15-11-26.us-east-2.compute.amazonaws.com:5000/)) 
 
 ## Project Video
 [![Watch the video]](https://img.youtube.com/vi/JWs6-rqRnGY/0.jpg)](https://youtu.be/V3v-0DzB22g)
 
 ## [Movie Search](https://nandanpandya.netlify.com/post/movie-search/)
-Blog: [https://nandanpandya.netlify.com/post/movie-search//](https://nandanpandya.netlify.com/post/movie-search//)
+Blog: [https://nandanpandya.netlify.com/post/movie-search/](https://nandanpandya.netlify.com/post/movie-search/)
 
 
 Search feature calculates cosine similarity between vectors space of search query and movies and top movies are returned.
