@@ -9,6 +9,7 @@ Web App:[Web App](http://ec2-3-15-11-26.us-east-2.compute.amazonaws.com:5000/)
 [Watch the video](https://youtu.be/V3v-0DzB22g)
 
 ## [Movie Search](https://nandanpandya.netlify.com/post/movie-search/)
+
 Blog: [https://nandanpandya.netlify.com/post/movie-search/](https://nandanpandya.netlify.com/post/movie-search/)
 
 
@@ -113,7 +114,8 @@ def cosine_similarity(relevant_docs, query_vector):
     return sorted_score_map[:50]
 ```
 ## [Movie Classifier](https://nandanpandya.netlify.com/post/movie-classifier/)
-Blog: [https://nandanpandya.netlify.com/post/movie-classifier//](https://nandanpandya.netlify.com/post/movie-classifier//)
+
+Blog: [https://nandanpandya.netlify.com/post/movie-classifier/](https://nandanpandya.netlify.com/post/movie-classifier/)
 
 **Naive Bayes Classifier:**
 - It is a classification technique based on Bayes’ Theorem with an assumption of independence among predictors. In simple terms, a Naive Bayes classifier assumes that the presence of a particular feature in a class is unrelated to the presence of any other feature.
@@ -197,7 +199,9 @@ def build_and_save():
 ```
  
 ## [Movie Recommender](https://nandanpandya.netlify.com/post/movie-recommender/)
+
 Blog: [https://nandanpandya.netlify.com/post/movie-recommender/](https://nandanpandya.netlify.com/post/movie-recommender/)
+
 **Metadata Based Recommender**
 
 - We will be using the information such as Credits,Keywords, Ratings and Movie details to recommend movies to a user.
