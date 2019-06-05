@@ -113,6 +113,13 @@ def build_doc_vector():
         for tf_idf_key in tf_idf_vector:
             tf_idf_vector[tf_idf_key] /= normalize
 ```
+The equation for TF IDF is given as below.
+
+{{< figure library ="1" src = "tf_idf_equation.JPG" title = "">}}
+
+The TF-IDF score is given by:
+
+{{< figure library ="1" src = "tf_idf_score.JPG" title = "">}}
 
 ### Build the Query Vector
 
@@ -131,6 +138,7 @@ def build_query_vector(processed_query):
     return query_vector
 ```
 ### Calculate the cosine similarity
+Once our query vector is created we will create a score map and assign it to the search result we get.
 ```
 def cosine_similarity(relevant_docs, query_vector):
     score_map = {}
@@ -142,6 +150,10 @@ def cosine_similarity(relevant_docs, query_vector):
     sorted_score_map = sorted(score_map.items(), key=operator.itemgetter(1), reverse=True)
     return sorted_score_map[:50]
 ```
+The Cosine similarity is given by the equation is given below:
+
+{{< figure library ="1" src = "Cosine Similarity.PNG" title = "">}}
+
 ## [Movie Classifier](https://nandanpandya.netlify.com/post/movie-classifier/)
 
 Blog: [https://nandanpandya.netlify.com/post/movie-classifier/](https://nandanpandya.netlify.com/post/movie-classifier/)
