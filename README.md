@@ -152,7 +152,8 @@ def cosine_similarity(relevant_docs, query_vector):
 ```
 The Cosine similarity is given by the equation is given below:
 
-{{< figure library ="1" src = "Cosine Similarity.PNG" title = "">}}
+![Cosine Similarity:](https://github.com/napandya/Movie-Recommender/blob/master/Cosine Similarity.PNG)
+
 
 ## [Movie Classifier](https://nandanpandya.netlify.com/post/movie-classifier/)
 
