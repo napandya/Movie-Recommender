@@ -14,8 +14,34 @@ Blog: [https://nandanpandya.netlify.com/post/movie-search/](https://nandanpandya
 
 
 Search feature calculates cosine similarity between vectors space of search query and movies and top movies are returned.
+### Loading the Data
+ - First, we need to load the data from the dataset. We need to pick the movie credit data such as the cast and crew. The other data we  upload metadata for the movie which has columns such as genre,original title,poster path for the poster image, production companies.
 
+ - Along with the data in code I have also initialized the initial conditions which are essential in next steps such as stemming and tokenizing. Only the seperate parts of the code are called in the initlize block of the code. This ensures easy debugging od parts of code and keeps each process atomic.
+```
+def initialize():
+    global data_folder, credits_cols, meta_cols, noise_list, credits_data, meta_data, N, tokenizer, stopword, stemmer, inverted_index, document_vector
+    # Data configurations
+    #data_folder = '/home/npandya/mysite/data/'
+    data_folder = 'data/'
+    credits_cols = {"id": None, "cast":['character', 'name'], "crew":['name']}
+    meta_cols = {"id": None, "genres":['name'], "original_title":None, "overview":None,"poster_path":None,
+                     "production_companies":['name'], "tagline":None}
+    noise_list = ['(voice)', '(uncredited)']
+
+    # Read data
+    credits_data = pd.read_csv(data_folder +'credits.csv', usecols=credits_cols.keys(), index_col="id")
+    meta_data = pd.read_csv(data_folder + 'movies_metadata.csv', usecols=meta_cols.keys(), index_col="id")
+    # Total number of documents = number of rows in movies_metadata.csv
+    N = meta_data.shape[0]
+
+    # Pre-processing initialization
+    tokenizer = RegexpTokenizer(r'[a-zA-Z0-9]+')
+    stopword = stopwords.words('english')
+    stemmer = PorterStemmer()
+ ```
 ### Pre-Processing:Stemming
+In this step we will stem the data where we have noise values and replace it with nulls. We will then tokenize the data and remove the stop words using porter stemmer. We will also enable lowercase for the token.
 ```
 def pre_processing(data_string):
     for noise in noise_list:
@@ -28,6 +54,7 @@ def pre_processing(data_string):
     return processed_data
 ```
 ### Creation Of Inverted Index:
+Inverted index is very essential for fast search results retrievel. This index is created on the id column of the metadata. It is thus our primary key which joins it with credits file.
 ```
 def create_inverted_index(x_data, x_cols):
     for row in x_data.itertuples():
@@ -47,6 +74,7 @@ def create_inverted_index(x_data, x_cols):
         insert(index, pre_processing(' '.join(data)))
 ```
 ### Insert the token created in the index
+We take the token and then search it with the token created.
 ```
 def insert(index, tokens):
     for token in tokens:
@@ -85,6 +113,7 @@ def build_doc_vector():
         for tf_idf_key in tf_idf_vector:
             tf_idf_vector[tf_idf_key] /= normalize
 ```
+
 ### Build the Query Vector
 
 ```
