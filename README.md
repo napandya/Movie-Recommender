@@ -115,11 +115,11 @@ def build_doc_vector():
 ```
 The equation for TF IDF is given as below.
 
-{{< figure library ="1" src = "tf_idf_equation.JPG" title = "">}}
+![TF IDF Equation:](https://github.com/napandya/Movie-Recommender/blob/master/tf_idf_equation.jpeg)
 
 The TF-IDF score is given by:
 
-{{< figure library ="1" src = "tf_idf_score.JPG" title = "">}}
+![TF IDF Score Equation:](https://github.com/napandya/Movie-Recommender/blob/master/tf_idf_score.jpeg)
 
 ### Build the Query Vector
 
