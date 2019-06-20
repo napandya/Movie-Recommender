@@ -6,7 +6,7 @@ Dataset: [Movie Lens](https://www.kaggle.com/rounakbanik/the-movies-dataset/home
 Web App:[Web App](http://ec2-3-14-250-128.us-east-2.compute.amazonaws.com:5000/)
 
 ## Project Video
-[Watch the video](https://www.youtube.com/watch?v=V3v-0DzB22g)
+[Watch the video](https://youtu.be/0GpSSf-ZNrw)
 
 ## [Movie Search](https://nandanpandya.netlify.com/post/movie-search/)
 
